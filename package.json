@@ -1,0 +1,26 @@
+{
+  "name": "viamia-keyboards",
+  "version": "1.0.0",
+  "description": "A collection of VIA jsons",
+  "main": "build.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tkon99/ViaMia-Keyboards.git"
+  },
+  "author": "tkon99",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tkon99/ViaMia-Keyboards/issues"
+  },
+  "homepage": "https://github.com/tkon99/ViaMia-Keyboards#readme",
+  "dependencies": {
+    "axios": "^0.26.0",
+    "glob": "^7.2.0",
+    "got": "^12.0.1",
+    "via-reader": "git://github.com/the-via/reader.git#f2fbf9cf87adfec271d1953e43ab9c037776535f"
+  }
+}

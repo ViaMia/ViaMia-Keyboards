@@ -102,3 +102,7 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Project files
+via_official_keyboards.json
+keyboards.v2.json
