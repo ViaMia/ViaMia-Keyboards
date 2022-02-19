@@ -23,7 +23,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: npm run build --if-present
+    - run: node build.js
     
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
