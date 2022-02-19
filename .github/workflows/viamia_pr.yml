@@ -1,6 +1,6 @@
 # This workflow will take a commit/PR and build a new keyboards.v2.json while checking for duplicate vidpids
 
-name: ViaMia
+name: ViaMia-PR
 
 on:
   pull_request:
