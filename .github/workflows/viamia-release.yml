@@ -32,3 +32,14 @@ jobs:
         prerelease: false
         files: |
           keyboards.v2.json
+          
+    - name: Push keyboard database to website
+      uses: dmnemec/copy_file_to_another_repo_action@main
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+      with:
+        source_file: 'keyboards.v2.json'
+        destination_repo: 'ViaMia/ViaMia.github.io'
+        user_email: 'viamia@tkon.nl'
+        user_name: 'viamia'
+        commit_message: 'Keyboard database update'
