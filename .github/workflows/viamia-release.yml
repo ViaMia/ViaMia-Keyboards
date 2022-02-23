@@ -39,7 +39,7 @@ jobs:
         API_TOKEN_GITHUB: ${{ secrets.GITHUB_TOKEN }}
       with:
         source_file: 'keyboards.v2.json'
-        destination_repo: 'dmnemec/release-test'
+        destination_repo: 'ViaMia/ViaMia.github.io'
         user_email: 'viamia@tkon.nl'
         user_name: 'viamia'
         commit_message: 'Keyboard database update'
