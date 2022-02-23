@@ -1,10 +1,10 @@
 import { createWriteStream, readFileSync } from 'fs';
-import {promisify} from 'node:util';
+import { promisify } from 'node:util';
 import stream from 'node:stream';
 import fs from 'node:fs';
 import got from 'got';
 import glob from 'glob';
-import {keyboardDefinitionV2ToVIADefinitionV2} from 'via-reader';
+import { keyboardDefinitionV2ToVIADefinitionV2 } from 'via-reader';
 import { exit } from 'process';
 
 const viaUrl = "https://www.caniusevia.com/keyboards.v2.json";
@@ -51,6 +51,9 @@ async function main(){
             data.definitions[keyboard_vidpid] = via_data;
         }
     }
+
+    // Set date
+    data.generatedAt = + new Date();
 
     console.log(`Finished. Added ${vidpids.length - official} keyboards.`);
 
