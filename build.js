@@ -25,12 +25,13 @@ async function main(){
     let data = JSON.parse(readFileSync('./via_official_keyboards.json').toString());
 
     let defs = data.definitions;
-    let vidpids = Object.keys(defs);
-    const official = vidpids.length;
+    let via_vidpids = Object.keys(defs);
+    let mia_vidpids = [];
 
-    console.log(`${official} keyboards found in the official VIA database.`);
+    console.log(`${via_vidpids.length} keyboards found in the official VIA database.`);
 
     // Load ViaMia keyboards
+    let errors = 0;
     let jsons = glob.sync('./keyboards/**/*.json');
     for (const keyboard of jsons) {
         // Load JSON
@@ -42,12 +43,15 @@ async function main(){
         let keyboard_vidpid = via_data.vendorProductId;
 
         // Check if vidpid is unique
-        if(vidpids.includes(keyboard_vidpid.toString())){
-            throw new Error(`Keyboard file ${keyboard} does not have a unique Vendor or Product ID.`);
-            exit(1);
+        if(via_vidpids.includes(keyboard_vidpid.toString())){
+            console.log(`🛑 Keyboard file ${keyboard} matches official VIA keyboard (${defs[keyboard_vidpid].name})`);
+            errors++;
+        }else if(mia_vidpids.includes(keyboard_vidpid.toString())){
+            console.log(`🛑 Keyboard file ${keyboard} matches another ViaMia keyboard (${defs[keyboard_vidpid].name})`);
+            errors++;
         }else{
-            // Append to keyboards & vidpid list (so ViaMia duplicates are also detected)
-            vidpids.push(keyboard_vidpid.toString());
+            // Append to keyboards & mia_vidpid list (so ViaMia duplicates are also detected)
+            mia_vidpids.push(keyboard_vidpid.toString());
             data.definitions[keyboard_vidpid] = via_data;
         }
     }
@@ -55,13 +59,19 @@ async function main(){
     // Set date
     data.generatedAt = + new Date();
 
-    console.log(`Finished. Added ${vidpids.length - official} keyboards.`);
+    console.log(`Finished. Added ${mia_vidpids.length} keyboards.`);
 
     // Write final JSON
     fs.writeFileSync('keyboards.v2.json', JSON.stringify(data));
 
     // Clean up
     fs.unlinkSync('via_official_keyboards.json');
+
+    // Throw errors
+    if(errors > 0){
+        console.error(`ERROR: ${errors} keyboard configs had duplicate vidpid combinations.`);
+        exit(1);
+    }
 }
 
 main();
